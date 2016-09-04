@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<project name="antproject" default="antproject" basedir=".">
+	<property name="junitJar" value="C:\Users\Jake\eclipse-jee-mars-2-win32-x86_64\plugins\org.junit_4.12.0.v201504281640\junit.jar" />
+	<property name="src.dir" value="${basedir}\src" />
+	<property name="test.dir" value="${basedir}\test" />
+	<property name="build.dir" value="${basedir}\bin" />
+
+	<path id="classpath">
+		<pathelement location="${junitJar}" />
+		<pathelement location="${build.dir}" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+	</target>
+
+	<target name="build" depends="init" description="build all">
+		<javac srcdir="${src.dir}" destdir="${build.dir}" source="1.8" includes="**" includeantruntime="false">
+			<classpath refid="classpath" />
+		</javac>
+		<javac srcdir="${test.dir}" destdir="${build.dir}" source="1.8" includes="**" includeantruntime="false">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<target name="antproject" depends="build" description="run antproject">
+		<java classname="com.jakecrane.antproject.App" fork="yes">
+			<classpath refid="classpath" />
+		</java>
+	</target>
+
+	<!--<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="rebuildAll" depends="clean,build" description="rebuild all" />-->
+</project>
